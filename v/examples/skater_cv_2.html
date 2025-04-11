@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skateboarder CV</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --main-color: #ff5722;
+            --dark-color: #333;
+            --light-color: #f4f4f4;
+            --accent-color: #2196f3;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(135deg, var(--main-color), var(--accent-color));
+            color: white;
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            overflow: hidden;
+            animation: headerGlow 3s infinite alternate;
+        }
+        
+        @keyframes headerGlow {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 87, 34, 0.5);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(33, 150, 243, 0.8);
+            }
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="rgba(255,255,255,0.1)"><path d="M30,30 L70,70 M30,70 L70,30" stroke="white" stroke-width="2"/></svg>');
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            animation: titleSlide 1s ease-out;
+        }
+        
+        @keyframes titleSlide {
+            0% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        h2 {
+            color: var(--main-color);
+            margin: 25px 0 15px 0;
+            border-bottom: 2px solid var(--main-color);
+            padding-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        section:hover h2 {
+            transform: translateX(5px);
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        section {
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+        
+        section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .job {
+            margin-bottom: 25px;
+            position: relative;
+            padding-left: 20px;
+            border-left: 3px solid var(--accent-color);
+            transition: all 0.3s ease;
+        }
+        
+        .job:hover {
+            transform: translateX(5px);
+            border-left-color: var(--main-color);
+        }
+        
+        .job h3 {
+            color: var(--dark-color);
+            margin-bottom: 5px;
+        }
+        
+        .job-details {
+            color: var(--main-color);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+        
+        li:hover {
+            transform: translateX(3px);
+        }
+        
+        li::before {
+            content: "🛹";
+            position: absolute;
+            left: -20px;
+            animation: spin 2s infinite linear;
+            display: inline-block;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .skill {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .skill:hover {
+            background-color: var(--main-color);
+            transform: translateY(-3px) rotate(2deg);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Skateboard Animations */
+        .skateboard {
+            position: absolute;
+            width: 40px;
+            height: 10px;
+            background-color: var(--dark-color);
+            border-radius: 3px;
+            z-index: 0;
+            animation: skateMove linear infinite;
+        }
+        
+        .skateboard::before {
+            content: "";
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: var(--main-color);
+            border-radius: 50%;
+            bottom: -4px;
+            left: 5px;
+        }
+        
+        .skateboard::after {
+            content: "";
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: var(--main-color);
+            border-radius: 50%;
+            bottom: -4px;
+            right: 5px;
+        }
+        
+        @keyframes skateMove {
+            0% {
+                transform: translateX(-100px) rotate(0deg);
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) rotate(360deg);
+            }
+        }
+        
+        .skateboard:nth-child(1) {
+            top: 10%;
+            animation-duration: 15s;
+            animation-delay: 1s;
+        }
+        
+        .skateboard:nth-child(2) {
+            top: 30%;
+            animation-duration: 20s;
+            animation-delay: 5s;
+        }
+        
+        .skateboard:nth-child(3) {
+            top: 60%;
+            animation-duration: 12s;
+            animation-delay: 2s;
+        }
+        
+        .skateboard:nth-child(4) {
+            top: 80%;
+            animation-duration: 18s;
+            animation-delay: 0s;
+        }
+        
+        /* Animated background */
+        .skate-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .skate-particle {
+            position: absolute;
+            width: 20px;
+            height: 5px;
+            background-color: rgba(33, 150, 243, 0.1);
+            border-radius: 2px;
+            animation: floatParticle linear infinite;
+        }
+        
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(180deg);
+                opacity: 0;
+            }
+        }
+        
+        .skate-particle:nth-child(1) { left: 10%; animation-duration: 20s; }
+        .skate-particle:nth-child(2) { left: 25%; animation-duration: 24s; animation-delay: 2s; }
+        .skate-particle:nth-child(3) { left: 40%; animation-duration: 18s; animation-delay: 5s; }
+        .skate-particle:nth-child(4) { left: 65%; animation-duration: 22s; animation-delay: 1s; }
+        .skate-particle:nth-child(5) { left: 80%; animation-duration: 25s; animation-delay: 4s; }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            section {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .skateboard {
+                display: none;
+            }
+            
+            .skate-particle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background animation elements -->
+    <div class="skate-bg">
+        <div class="skate-particle"></div>
+        <div class="skate-particle"></div>
+        <div class="skate-particle"></div>
+        <div class="skate-particle"></div>
+        <div class="skate-particle"></div>
+    </div>
+    
+    <!-- Moving skateboards -->
+    <div class="skateboard"></div>
+    <div class="skateboard"></div>
+    <div class="skateboard"></div>
+    <div class="skateboard"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Skateboarder CV</h1>
+            <div class="subtitle">Passionate Skater Since Age 12</div>
+        </header>
+        
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-container">
+                <div class="about-text">
+                    <p>I'm a passionate skateboarder who's been skating since I was 12. I love everything about the culture—from customizing decks to helping beginners learn their first ollie. I'm looking to work at a skateboarding shop where I can share my knowledge and vibe with the community.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="experience">
+            <h2>Work Experience</h2>
+            
+            <div class="job">
+                <h3>Local Skate Park Volunteer</h3>
+                <div class="job-details">Sunny Hills Skate Park – Summer 2022</div>
+                <ul>
+                    <li>Helped organize weekend skate clinics for beginners</li>
+                    <li>Assisted with maintenance of ramps and rails</li>
+                    <li>Provided safety guidance and first aid for minor injuries</li>
+                </ul>
+            </div>
+            
+            <div class="job">
+                <h3>Sales Assistant</h3>
+                <div class="job-details">BoardHouse Clothing & Skate – 2023</div>
+                <ul>
+                    <li>Advised customers on deck and wheel selections based on skill level and style</li>
+                    <li>Managed inventory and helped with product displays</li>
+                    <li>Promoted skate events on social media</li>
+                </ul>
+            </div>
+            
+            <div class="job">
+                <h3>Freelance Deck Designer</h3>
+                <div class="job-details">Self-Run Project – 2021–Present</div>
+                <ul>
+                    <li>Designed custom grip tape art and deck graphics</li>
+                    <li>Painted and sold over 40 unique board designs through Instagram</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <span class="skill">Deep knowledge of skate gear and brands</span>
+                <span class="skill">Friendly, outgoing, and community-oriented</span>
+                <span class="skill">Experience with POS systems</span>
+                <span class="skill">Social media promotion</span>
+                <span class="skill">Basic board repair and maintenance</span>
+            </div>
+        </section>
+        
+        <footer>
+            <p>CV created on April 11, 2025 • Skater's Portfolio</p>
+        </footer>
+    </div>
+
+    <script>
+        // Add animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section');
+            
+            // Random skateboard direction changes
+            const skateboards = document.querySelectorAll('.skateboard');
+            
+            // Create trick labels that occasionally appear
+            function createTrickLabel() {
+                const tricks = ['Ollie', 'Kickflip', 'Heelflip', '360 Flip', 'Nollie', 'Frontside 180'];
+                const trick = tricks[Math.floor(Math.random() * tricks.length)];
+                
+                const label = document.createElement('div');
+                label.textContent = trick + '!';
+                label.style.position = 'absolute';
+                label.style.color = 'var(--main-color)';
+                label.style.fontWeight = 'bold';
+                label.style.fontSize = '14px';
+                label.style.padding = '3px 8px';
+                label.style.borderRadius = '10px';
+                label.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+                label.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.2)';
+                label.style.zIndex = '100';
+                
+                // Random position
+                label.style.left = Math.random() * 80 + 10 + '%';
+                label.style.top = Math.random() * 80 + 10 + '%';
+                
+                // Add to body
+                document.body.appendChild(label);
+                
+                // Animate and remove
+                label.style.transition = 'all 1s ease-out';
+                setTimeout(() => {
+                    label.style.transform = 'translateY(-20px)';
+                    label.style.opacity = '0';
+                }, 100);
+                
+                setTimeout(() => {
+                    document.body.removeChild(label);
+                }, 1100);
+            }
+            
+            // Create trick labels periodically
+            setInterval(createTrickLabel, 3000);
+            
+            // Hover effects for list items
+            const listItems = document.querySelectorAll('li');
+            listItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    const emoji = this.querySelector('::before');
+                    if (emoji) {
+                        emoji.style.transform = 'rotate(180deg)';
+                    }
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    const emoji = this.querySelector('::before');
+                    if (emoji) {
+                        emoji.style.transform = 'rotate(0deg)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

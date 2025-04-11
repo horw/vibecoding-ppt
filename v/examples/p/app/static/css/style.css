@@ -1,0 +1,63 @@
+/* Main Styles for Chinese Flashcard App */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+/* Card styles */
+#flashcard {
+    min-height: 300px;
+    cursor: pointer;
+    transition: transform 0.6s;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    background-color: #f8f9fa;
+}
+
+#flashcard:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Chinese character text */
+#chinese-text {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+/* Study mode styles */
+.card-body .display-4 {
+    font-size: 4rem;
+}
+
+/* Navigation active state */
+.navbar-nav .nav-link.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Flash messages */
+.alert {
+    margin-bottom: 1.5rem;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #chinese-text {
+        font-size: 3rem;
+    }
+    
+    .card-body .display-4 {
+        font-size: 3rem;
+    }
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Icons</title>
+</head>
+<body>
+    <h1>Icon Generator</h1>
+    <p>Right-click on each canvas and select "Save image as..." to save the icon.</p>
+    
+    <h2>16x16 Icon</h2>
+    <canvas id="icon16" width="16" height="16"></canvas>
+    <h2>48x48 Icon</h2>
+    <canvas id="icon48" width="48" height="48"></canvas>
+    <h2>128x128 Icon</h2>
+    <canvas id="icon128" width="128" height="128"></canvas>
+    
+    <script>
+        function drawIcon(canvasId, size) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#6B46C1'; // Purple background
+            ctx.fillRect(0, 0, size, size);
+            
+            // Play button (triangle)
+            ctx.fillStyle = 'white';
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const triangleSize = size * 0.4;
+            
+            ctx.beginPath();
+            ctx.moveTo(centerX + triangleSize * 0.5, centerY);
+            ctx.lineTo(centerX - triangleSize * 0.25, centerY - triangleSize * 0.4);
+            ctx.lineTo(centerX - triangleSize * 0.25, centerY + triangleSize * 0.4);
+            ctx.closePath();
+            ctx.fill();
+        }
+        
+        // Draw all icons
+        drawIcon('icon16', 16);
+        drawIcon('icon48', 48);
+        drawIcon('icon128', 128);
+    </script>
+</body>
+</html>

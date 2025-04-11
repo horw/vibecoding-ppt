@@ -1,0 +1,1 @@
+Then use that magical feeling of “wow, coding solved a real problem of mine!” to push yourself to learn more about actual coding. 

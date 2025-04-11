@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voicer - Speech to Text</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+            transition: background-color 0.5s ease;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        #status {
+            text-align: center;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #7f8c8d;
+        }
+        #result {
+            min-height: 200px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 4px;
+            background-color: #fff;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            transition: background-color 0.3s ease;
+        }
+        .status-recording {
+            color: #e74c3c !important;
+        }
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .options {
+            margin: 20px 0;
+        }
+        .options label {
+            margin-right: 15px;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        /* Vibe effect styles */
+        .vibe-active {
+            animation: vibe 1.5s ease;
+        }
+        #vibe-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff00cc, #3333ff, #00ccff, #33ff33, #ffcc00);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 999;
+            transition: opacity 0.5s ease;
+        }
+        .vibe-overlay-active {
+            opacity: 0.4 !important;
+            animation: color-shift 2s ease infinite;
+        }
+        @keyframes vibe {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.03) rotate(1deg); }
+            50% { transform: scale(1.05) rotate(-1deg); }
+            75% { transform: scale(1.03) rotate(1deg); }
+            100% { transform: scale(1); }
+        }
+        @keyframes color-shift {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        .vibe-text {
+            color: #ff3366;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff3366, #ff6b6b, #ffaa4c, #ffd166);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 2s ease infinite;
+        }
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body>
+    <div id="vibe-overlay"></div>
+    <div class="container">
+        <h1>Voicer - Speech to Text</h1>
+        
+        <div class="options">
+            <label>
+                <input type="checkbox" id="autoStop" checked>
+                Auto stop after silence
+            </label>
+            <label>
+                <input type="checkbox" id="interimResults" checked>
+                Show interim results
+            </label>
+            <label>
+                <input type="checkbox" id="vibeEffect" checked>
+                Enable vibe effects
+            </label>
+        </div>
+
+        <div class="controls">
+            <button id="startBtn">Start Recording</button>
+            <button id="stopBtn" disabled>Stop Recording</button>
+            <button id="clearBtn">Clear Text</button>
+            <button id="copyBtn">Copy to Clipboard</button>
+        </div>
+        
+        <div id="status">Click "Start Recording" to begin</div>
+        
+        <div id="result"></div>
+        
+        <div class="footer">
+            <p>Using Web Speech API | Browser support may vary</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // DOM elements
+            const startBtn = document.getElementById('startBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const statusElement = document.getElementById('status');
+            const resultElement = document.getElementById('result');
+            const autoStopCheckbox = document.getElementById('autoStop');
+            const interimResultsCheckbox = document.getElementById('interimResults');
+            const vibeEffectCheckbox = document.getElementById('vibeEffect');
+            const vibeOverlay = document.getElementById('vibe-overlay');
+            const container = document.querySelector('.container');
+            
+            // Speech recognition setup
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            
+            if (!SpeechRecognition) {
+                statusElement.textContent = "Speech recognition not supported in this browser";
+                startBtn.disabled = true;
+                return;
+            }
+            
+            const recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'en-US';
+            
+            let isRecording = false;
+            let finalTranscript = '';
+            let interimTranscript = '';
+            let silenceTimer = null;
+            let vibeTimeout = null;
+            let lastVibeTime = 0;
+            
+            // Event handlers
+            startBtn.addEventListener('click', startRecording);
+            stopBtn.addEventListener('click', stopRecording);
+            clearBtn.addEventListener('click', clearTranscript);
+            copyBtn.addEventListener('click', copyToClipboard);
+            
+            // Recognition event handlers
+            recognition.onstart = () => {
+                isRecording = true;
+                updateUI();
+            };
+            
+            recognition.onend = () => {
+                isRecording = false;
+                updateUI();
+                
+                // If we were manually stopped, don't restart
+                if (stopBtn.disabled) return;
+                
+                // Auto-restart if we're still supposed to be recording
+                // (recognition sometimes stops on its own)
+                if (!stopBtn.disabled) {
+                    recognition.start();
+                }
+            };
+            
+            recognition.onresult = (event) => {
+                interimTranscript = '';
+                
+                // Process results
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript;
+                    
+                    if (event.results[i].isFinal) {
+                        finalTranscript += transcript + ' ';
+                        // Check for "vibe" in final transcript
+                        if (vibeEffectCheckbox.checked && containsVibe(transcript)) {
+                            triggerVibeEffect();
+                        }
+                    } else if (interimResultsCheckbox.checked) {
+                        interimTranscript += transcript;
+                        // Check for "vibe" in interim transcript
+                        if (vibeEffectCheckbox.checked && containsVibe(transcript)) {
+                            triggerVibeEffect();
+                        }
+                    }
+                }
+                
+                // Update the display
+                updateTranscriptDisplay();
+                
+                // Reset silence detection timer
+                if (autoStopCheckbox.checked) {
+                    resetSilenceDetection();
+                }
+            };
+            
+            recognition.onerror = (event) => {
+                console.error('Recognition error:', event.error);
+                statusElement.textContent = `Error: ${event.error}`;
+                
+                if (event.error === 'no-speech') {
+                    // This is a normal error that occurs when no speech is detected
+                    // We don't need to show it to the user
+                    statusElement.textContent = 'Listening...';
+                } else {
+                    stopRecording();
+                }
+            };
+            
+            // Functions
+            function startRecording() {
+                try {
+                    recognition.start();
+                    startBtn.disabled = true;
+                    stopBtn.disabled = false;
+                    statusElement.textContent = 'Listening...';
+                    statusElement.classList.add('status-recording', 'pulse');
+                    
+                    if (autoStopCheckbox.checked) {
+                        resetSilenceDetection();
+                    }
+                } catch (error) {
+                    console.error('Failed to start recording:', error);
+                    statusElement.textContent = `Error starting: ${error.message}`;
+                }
+            }
+            
+            function stopRecording() {
+                recognition.stop();
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+                statusElement.textContent = 'Not listening';
+                statusElement.classList.remove('status-recording', 'pulse');
+                
+                if (silenceTimer) {
+                    clearTimeout(silenceTimer);
+                    silenceTimer = null;
+                }
+            }
+            
+            function clearTranscript() {
+                finalTranscript = '';
+                interimTranscript = '';
+                updateTranscriptDisplay();
+            }
+            
+            function copyToClipboard() {
+                const text = resultElement.textContent;
+                navigator.clipboard.writeText(text)
+                    .then(() => {
+                        const originalText = statusElement.textContent;
+                        statusElement.textContent = 'Copied to clipboard!';
+                        setTimeout(() => {
+                            statusElement.textContent = originalText;
+                        }, 2000);
+                    })
+                    .catch(err => {
+                        console.error('Failed to copy text: ', err);
+                        statusElement.textContent = 'Failed to copy text';
+                    });
+            }
+            
+            function updateTranscriptDisplay() {
+                // Highlight the word "vibe" in the transcript
+                const highlightedFinal = finalTranscript.replace(/\b(vibe|vibes|vibing)\b/gi, '<span class="vibe-text">$&</span>');
+                const highlightedInterim = interimTranscript.replace(/\b(vibe|vibes|vibing)\b/gi, '<span class="vibe-text">$&</span>');
+                
+                resultElement.innerHTML = highlightedFinal + 
+                    (highlightedInterim ? `<span style="color: #7f8c8d">${highlightedInterim}</span>` : '');
+                
+                // Auto-scroll to bottom
+                resultElement.scrollTop = resultElement.scrollHeight;
+            }
+            
+            function resetSilenceDetection() {
+                if (silenceTimer) {
+                    clearTimeout(silenceTimer);
+                }
+                
+                // Auto-stop after 2 seconds of silence
+                silenceTimer = setTimeout(() => {
+                    if (isRecording) {
+                        stopRecording();
+                        statusElement.textContent = 'Stopped due to silence';
+                    }
+                }, 2000);
+            }
+            
+            function updateUI() {
+                startBtn.disabled = isRecording;
+                stopBtn.disabled = !isRecording;
+                
+                if (isRecording) {
+                    statusElement.textContent = 'Listening...';
+                    statusElement.classList.add('status-recording', 'pulse');
+                } else {
+                    statusElement.textContent = 'Not listening';
+                    statusElement.classList.remove('status-recording', 'pulse');
+                }
+            }
+            
+            // Check if text contains the word "vibe"
+            function containsVibe(text) {
+                return /\b(vibe|vibes|vibing)\b/i.test(text);
+            }
+            
+            // Trigger vibe effect when the word "vibe" is detected
+            function triggerVibeEffect() {
+                // Prevent triggering the effect too frequently
+                const now = Date.now();
+                if (now - lastVibeTime < 2000) return;
+                lastVibeTime = now;
+                
+                // Sound effect (optional)
+                // const sound = new Audio('path/to/vibe-sound.mp3');
+                // sound.play();
+                
+                // Visual effects
+                container.classList.add('vibe-active');
+                vibeOverlay.classList.add('vibe-overlay-active');
+                document.body.style.backgroundColor = '#f0f8ff';
+                
+                // Status message
+                const originalText = statusElement.textContent;
+                statusElement.textContent = '✨ VIBE DETECTED! ✨';
+                statusElement.classList.add('vibe-text');
+                
+                // Reset effects after 3 seconds
+                if (vibeTimeout) {
+                    clearTimeout(vibeTimeout);
+                }
+                
+                vibeTimeout = setTimeout(() => {
+                    container.classList.remove('vibe-active');
+                    vibeOverlay.classList.remove('vibe-overlay-active');
+                    document.body.style.backgroundColor = '';
+                    statusElement.textContent = originalText;
+                    statusElement.classList.remove('vibe-text');
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

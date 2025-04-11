@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Word Counter</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 15px;
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+    button {
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+    button:hover {
+      background-color: #3367d6;
+    }
+    #result {
+      margin-top: 15px;
+      border-top: 1px solid #ddd;
+      padding-top: 15px;
+    }
+    .word-count {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+    .loading {
+      color: #666;
+      font-style: italic;
+    }
+    #error {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Word Counter</h1>
+  <button id="analyze">Analyze Current Page</button>
+  
+  <div id="result">
+    <p>Click the button above to analyze the page and find the most common words.</p>
+  </div>
+  
+  <div id="error"></div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

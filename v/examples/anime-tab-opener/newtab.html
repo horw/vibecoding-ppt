@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Tab Opener</title>
+  <link rel="stylesheet" href="newtab.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Anime Tab Opener</h1>
+      <div class="toggle-container">
+        <label for="mediaTypeToggle">
+          <span class="toggle-label anime-label">Anime Openings</span>
+          <div class="toggle">
+            <input type="checkbox" id="mediaTypeToggle">
+            <span class="slider"></span>
+          </div>
+          <span class="toggle-label lofi-label">Lo-Fi Chillhop</span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="player-container">
+      <div id="player"></div>
+    </div>
+    
+    <div class="controls">
+      <button id="refresh-btn">New Track</button>
+      <div class="track-info">
+        <p id="track-title">Loading...</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="newtab.js"></script>
+</body>
+</html>

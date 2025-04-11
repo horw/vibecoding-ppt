@@ -1,0 +1,1 @@
+I want to tell people about vibe codding so I will do presentation in slidev, every .md file is one slide. Inside promts.md you will put promt which I gived to you. Also you should create tasks.md where you will put your tasks and after reveiw we will do it one by one

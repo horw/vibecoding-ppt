@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block title %}Study Mode{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-center">Study Mode</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <h2 id="card-counter" class="text-muted mb-3">Card 0 of 0</h2>
+                
+                <div id="flashcard" class="py-5">
+                    <div id="card-front" class="mb-3">
+                        <h1 id="chinese-text" class="display-4">加载中...</h1>
+                        <p id="pinyin-text" class="lead text-muted"></p>
+                    </div>
+                    
+                    <div id="card-back" class="mt-4" style="display: none;">
+                        <hr>
+                        <h3 id="english-text" class="mt-4">Loading...</h3>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-between mt-4">
+                    <button id="prev-btn" class="btn btn-secondary" disabled>Previous</button>
+                    <button id="flip-btn" class="btn btn-primary">Show Answer</button>
+                    <button id="next-btn" class="btn btn-secondary" disabled>Next</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <button id="random-btn" class="btn btn-warning">Show Random Card</button>
+            <a href="{{ url_for('cards') }}" class="btn btn-outline-secondary ms-2">Back to All Cards</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let cards = [];
+        let currentIndex = -1;
+        let isFlipped = false;
+        
+        const chineseText = document.getElementById('chinese-text');
+        const pinyinText = document.getElementById('pinyin-text');
+        const englishText = document.getElementById('english-text');
+        const cardBack = document.getElementById('card-back');
+        const cardCounter = document.getElementById('card-counter');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const flipBtn = document.getElementById('flip-btn');
+        const randomBtn = document.getElementById('random-btn');
+        
+        // Fetch all cards
+        fetch('/api/cards')
+            .then(response => response.json())
+            .then(data => {
+                cards = data;
+                if (cards.length > 0) {
+                    currentIndex = 0;
+                    updateCard();
+                    updateButtons();
+                } else {
+                    chineseText.textContent = 'No cards available';
+                    englishText.textContent = 'Please add some cards first';
+                }
+            });
+        
+        // Flip card to show/hide English translation
+        flipBtn.addEventListener('click', function() {
+            if (cards.length === 0) return;
+            
+            isFlipped = !isFlipped;
+            if (isFlipped) {
+                cardBack.style.display = 'block';
+                flipBtn.textContent = 'Hide Answer';
+            } else {
+                cardBack.style.display = 'none';
+                flipBtn.textContent = 'Show Answer';
+            }
+        });
+        
+        // Previous card
+        prevBtn.addEventListener('click', function() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                resetCard();
+                updateCard();
+                updateButtons();
+            }
+        });
+        
+        // Next card
+        nextBtn.addEventListener('click', function() {
+            if (currentIndex < cards.length - 1) {
+                currentIndex++;
+                resetCard();
+                updateCard();
+                updateButtons();
+            }
+        });
+        
+        // Random card
+        randomBtn.addEventListener('click', function() {
+            fetch('/api/random_card')
+                .then(response => response.json())
+                .then(card => {
+                    if (card.error) {
+                        alert('No cards available');
+                        return;
+                    }
+                    
+                    chineseText.textContent = card.chinese;
+                    pinyinText.textContent = card.pinyin || '';
+                    englishText.textContent = card.english;
+                    
+                    // Find the index of this card in our array
+                    currentIndex = cards.findIndex(c => c.id === card.id);
+                    resetCard();
+                    updateButtons();
+                    cardCounter.textContent = `Random Card (${currentIndex + 1} of ${cards.length})`;
+                });
+        });
+        
+        function updateCard() {
+            if (currentIndex >= 0 && currentIndex < cards.length) {
+                const card = cards[currentIndex];
+                chineseText.textContent = card.chinese;
+                pinyinText.textContent = card.pinyin || '';
+                englishText.textContent = card.english;
+                cardCounter.textContent = `Card ${currentIndex + 1} of ${cards.length}`;
+            }
+        }
+        
+        function updateButtons() {
+            prevBtn.disabled = currentIndex <= 0;
+            nextBtn.disabled = currentIndex >= cards.length - 1;
+        }
+        
+        function resetCard() {
+            isFlipped = false;
+            cardBack.style.display = 'none';
+            flipBtn.textContent = 'Show Answer';
+        }
+    });
+</script>
+{% endblock %}

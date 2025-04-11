@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skateboarder CV</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --main-color: #ff5722;
+            --dark-color: #333;
+            --light-color: #f4f4f4;
+            --accent-color: #2196f3;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(135deg, var(--main-color), var(--accent-color));
+            color: white;
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="rgba(255,255,255,0.1)"><path d="M30,30 L70,70 M30,70 L70,30" stroke="white" stroke-width="2"/></svg>');
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        h2 {
+            color: var(--main-color);
+            margin: 25px 0 15px 0;
+            border-bottom: 2px solid var(--main-color);
+            padding-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        section {
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: white;
+        }
+        
+        .about-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .job {
+            margin-bottom: 25px;
+            position: relative;
+            padding-left: 20px;
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        .job h3 {
+            color: var(--dark-color);
+            margin-bottom: 5px;
+        }
+        
+        .job-details {
+            color: var(--main-color);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        li::before {
+            content: "🛹";
+            position: absolute;
+            left: -20px;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .skill {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            section {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Skateboarder CV</h1>
+            <div class="subtitle">Passionate Skater Since Age 12</div>
+        </header>
+        
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-container">
+                <div class="about-text">
+                    <p>I'm a passionate skateboarder who's been skating since I was 12. I love everything about the culture—from customizing decks to helping beginners learn their first ollie. I'm looking to work at a skateboarding shop where I can share my knowledge and vibe with the community.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="experience">
+            <h2>Work Experience</h2>
+            
+            <div class="job">
+                <h3>Local Skate Park Volunteer</h3>
+                <div class="job-details">Sunny Hills Skate Park – Summer 2022</div>
+                <ul>
+                    <li>Helped organize weekend skate clinics for beginners</li>
+                    <li>Assisted with maintenance of ramps and rails</li>
+                    <li>Provided safety guidance and first aid for minor injuries</li>
+                </ul>
+            </div>
+            
+            <div class="job">
+                <h3>Sales Assistant</h3>
+                <div class="job-details">BoardHouse Clothing & Skate – 2023</div>
+                <ul>
+                    <li>Advised customers on deck and wheel selections based on skill level and style</li>
+                    <li>Managed inventory and helped with product displays</li>
+                    <li>Promoted skate events on social media</li>
+                </ul>
+            </div>
+            
+            <div class="job">
+                <h3>Freelance Deck Designer</h3>
+                <div class="job-details">Self-Run Project – 2021–Present</div>
+                <ul>
+                    <li>Designed custom grip tape art and deck graphics</li>
+                    <li>Painted and sold over 40 unique board designs through Instagram</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <span class="skill">Deep knowledge of skate gear and brands</span>
+                <span class="skill">Friendly, outgoing, and community-oriented</span>
+                <span class="skill">Experience with POS systems</span>
+                <span class="skill">Social media promotion</span>
+                <span class="skill">Basic board repair and maintenance</span>
+            </div>
+        </section>
+        
+        <footer>
+            <p>CV created on April 11, 2025 • Skater's Portfolio</p>
+        </footer>
+    </div>
+</body>
+</html>

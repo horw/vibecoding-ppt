@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Card{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Edit Flashcard</h1>
+
+<div class="card">
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="chinese" class="form-label">Chinese Characters <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="chinese" name="chinese" value="{{ card.chinese }}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="pinyin" class="form-label">Pinyin (Optional)</label>
+                <input type="text" class="form-control" id="pinyin" name="pinyin" value="{{ card.pinyin }}">
+                <div class="form-text">The phonetic spelling using the Latin alphabet</div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="english" class="form-label">English Translation <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="english" name="english" value="{{ card.english }}" required>
+            </div>
+            
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('cards') }}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Update Card</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
