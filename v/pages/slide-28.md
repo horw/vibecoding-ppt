@@ -66,7 +66,7 @@ transition: fade-out
       <span></span>
       <span></span>
       <div class="flex items-center">
-        <span class="mr-2">✉️</span> contact@vibecoding.com
+        <span class="mr-2">✉️</span> wechat: horw7001
       </div>
     </div>
     <div v-click class="neon-button">
@@ -75,7 +75,7 @@ transition: fade-out
       <span></span>
       <span></span>
       <div class="flex items-center">
-        <span class="mr-2">🌐</span> vibecoding.com
+        <span class="mr-2">🌐</span> Igor Udot
       </div>
     </div>
   </div>
