@@ -86,16 +86,6 @@ src: ./pages/slide-8.1.md
 hide: false
 ---
 
----
-src: ./pages/slide-8.md
-hide: false
----
-
-
----
-src: ./pages/slide-9.md
-hide: false
----
 
 ---
 src: ./pages/slide-10.md
@@ -109,6 +99,18 @@ hide: false
 
 ---
 src: ./pages/slide-11.1.md
+hide: false
+---
+
+---
+src: ./pages/slide-8.md
+hide: false
+---
+
+
+
+---
+src: ./pages/slide-9.md
 hide: false
 ---
 
