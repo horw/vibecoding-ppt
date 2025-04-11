@@ -1,4 +1,4 @@
-# Task 1: Vibe Coding a Professional CV
+# Task 1: Landing page (e.g. a CV) - warm up (15 min)
 
 <div class="flex">
 <div class="flex-1 pr-4">

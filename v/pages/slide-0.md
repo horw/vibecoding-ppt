@@ -1,5 +1,10 @@
-# Who am I 
+# Who am I?
 <v-click>
-Igor Udot - Software Engineer
+Igor Udot 吴一格 - Software Engineer
 </v-click>
-<img src="/imgs/im.jpg">
+
+<div class="flex">
+  <div class="flex-1">
+    <img src="/imgs/im.jpg" class="rounded-lg shadow-xl">
+  </div>
+</div>

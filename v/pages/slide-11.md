@@ -1,11 +1,11 @@
-# Real-World Experience: "I've Been Doing It for Two Years"
+# "I've Been Doing It for Two Years" 
 
-## Dev.to Article by Vorniches
-- Started using AI for coding two years ago
-- Uses AI to handle ~90% of the code writing
-- Created tools to improve the workflow:
-  - **Prototype**: Docker-based Django quick-start
-  - **snap2txt**: Tool that converts an entire project into a single text file for AI context
+Actually, vibecoding started long ago but just didn't have a name for it.
+
+
+1. Started using AI for coding two years ago
+2. Uses AI to handle ~90% of the code writing
+
 
 > "From the first day I saw modern neural nets in action, I started using them – not to flood the web with AI-baked memes, but for real work."
 

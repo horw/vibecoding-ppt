@@ -6,11 +6,6 @@
 ## The Challenge:
 Create a simple browser-based game (like Flappy Bird or Doodle Jump) without writing all the code yourself.
 
-## Why This Demonstrates Vibe Coding:
-- Games typically require complex logic and physics
-- Traditional development would take days or weeks
-- With vibe coding, you can have a working prototype in minutes
-- Focus on game mechanics, not implementation details
 
 </div>
 

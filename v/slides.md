@@ -36,7 +36,17 @@ hide: false
 ---
 
 ---
+src: ./pages/slide-01.md
+hide: false
+---
+
+---
 src: ./pages/slide-1.md
+hide: false
+---
+
+---
+src: ./pages/slide-19.md
 hide: false
 ---
 
@@ -70,6 +80,12 @@ src: ./pages/slide-7.md
 hide: false
 ---
 
+
+---
+src: ./pages/slide-8.1.md
+hide: false
+---
+
 ---
 src: ./pages/slide-8.md
 hide: false
@@ -88,6 +104,11 @@ hide: false
 
 ---
 src: ./pages/slide-11.md
+hide: false
+---
+
+---
+src: ./pages/slide-11.1.md
 hide: false
 ---
 
@@ -112,23 +133,7 @@ hide: false
 ---
 
 ---
-src: ./pages/slide-16.md
-hide: false
----
-
-
----
 src: ./pages/slide-17.md
-hide: false
----
-
----
-src: ./pages/slide-18.md
-hide: false
----
-
----
-src: ./pages/slide-19.md
 hide: false
 ---
 
@@ -137,14 +142,39 @@ src: ./pages/slide-20.md
 hide: false
 ---
 
+---
+src: ./pages/slide-16.md
+hide: false
+---
+
 
 ---
-src: ./pages/slide-21.md
+src: ./pages/slide-18.md
 hide: false
 ---
 
 ---
+src: ./pages/slide-26.md
+hide: false
+---
+
+
+---
 src: ./pages/slide-task-1.md
+hide: false
+---
+
+
+
+
+---
+src: ./pages/slide-25.md
+hide: false
+---
+
+
+---
+src: ./pages/slide-27.md
 hide: false
 ---
 
@@ -154,6 +184,25 @@ hide: false
 ---
 
 ---
+src: ./pages/slide-24.md
+hide: false
+---
+
+---
 src: ./pages/slide-task-3.md
 hide: false
 ---
+
+---
+src: ./pages/slide-task-4.md
+hide: false
+---
+
+
+
+
+---
+src: ./pages/slide-22.md
+hide: false
+---
+    
