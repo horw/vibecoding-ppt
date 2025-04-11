@@ -193,6 +193,13 @@ src: ./pages/slide-task-3.md
 hide: false
 ---
 
+
+---
+src: ./pages/slide-29.md
+hide: false
+---
+    
+
 ---
 src: ./pages/slide-task-4.md
 hide: false
@@ -203,6 +210,13 @@ hide: false
 
 ---
 src: ./pages/slide-22.md
+hide: false
+---
+    
+
+
+---
+src: ./pages/slide-28.md
 hide: false
 ---
     
