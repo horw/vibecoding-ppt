@@ -2,8 +2,6 @@
 layout: center
 ---
 
-# Introduction
-
 <iframe 
   width="620" 
   height="460" 
