@@ -1,6 +1,6 @@
 # Who am I?
 <v-click>
-Igor Udot 吴一格 - Software Engineer
+Igor Udot 吴一格 
 </v-click>
 
 <div class="flex">
