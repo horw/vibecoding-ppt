@@ -1,0 +1,1 @@
+This repository is for the event in Shanghai on April 12, 2025.  https://www.linkedin.com/posts/codebar-shanghai_vibecoding-learning-community-ugcPost-7316790499783110656-uq4_?utm_source=share&utm_medium=member_desktop&rcm=ACoAADxoX2EBo-DWoJFWSiC9OPOjXYGckVbOeZc
