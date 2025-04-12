@@ -134,6 +134,12 @@ src: ./pages/slide-15.md
 hide: false
 ---
 
+
+---
+src: ./pages/slide-31.md
+hide: false
+---
+
 ---
 src: ./pages/slide-17.md
 hide: false
@@ -221,4 +227,4 @@ hide: false
 src: ./pages/slide-28.md
 hide: false
 ---
-    
+
